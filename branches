@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Display all git branches, sorted by last commit date
+# and showing the committer's name
+
+if [[ "$1" == "-r" ]]
+then
+    REMOTE="-r"
+else
+    REMOTE=""
+fi
+
+for k in `git branch $REMOTE | grep -v 'no branch' | perl -pe s/^..// | sed 's/.\+ -> //'`; do echo -e `git show --pretty=format:"%Cgreen%ci %Cblue%cr%Creset (%cn)" $k|head -n 1`\\t$k; done | sort
