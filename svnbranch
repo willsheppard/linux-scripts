@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Before creating a branch, make sure it hasn't already been created.
+#
+# Then display the command to create it.
+
+# Artefact ID (AKA issue/ticket)
+ART=$1
+
+function usage() {
+    echo "usage: svnbranch [ART]"
+    exit 1
+}
+
+if [[ -z "$ART" ]]
+then
+    usage
+fi
+
+if [[ -z "$SVN" ]]
+then
+    echo "\$SVN must be defined as the path to the subversion repo"
+    exit
+fi
+
+# Quick reference
+echo "If you know the branch doesn't exist yet:"
+    echo "svn copy -m \"[$ART] - Branching trunk\" $SVN/trunk $SVN/branches/$ART"
+echo
+
+# Check if branch already exists
+echo "Checking if branch already exists..."
+echo "svn ls $SVN/branches/ --verbose |grep $ART"
+EXISTING_BRANCH=$(svn ls $SVN/branches/ --verbose |grep $ART)
+echo
+
+if [[ -n $EXISTING_BRANCH ]]
+then
+    echo "WARNING: Branch $ART already exists, cannot create it:"
+    echo $EXISTING_BRANCH
+    exit 1
+else
+    echo "Branch not found, you may create it:"
+    echo
+    echo "svn copy -m \"[$ART] - Branching trunk\" $SVN/trunk $SVN/branches/$ART"
+    #echo "svn checkout $SVN/branches/$ART"
+    echo
+    echo "Then type:"
+    echo "svncheckout $ART foo"
+fi
