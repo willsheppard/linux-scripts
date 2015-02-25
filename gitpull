@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Convenience script for "git pull --rebase --ff"
+
+if [[ -z "$branch" ]]
+    echo "\$branch must be set to the current branch"
+    exit
+fi
+
+git fetch --all
+
+# this results in an extra commit
+#git pull --ff origin $branch
+
+# this doesn't
+#git rebase origin/$branch
+
+# but isn't this better? (and easier to remember)
+git pull --ff --rebase origin $branch

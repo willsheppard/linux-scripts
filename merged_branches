@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Which stories have been merged since the current branch was cut from master?
+if [[ -z "$branch" ]]
+then
+    branch=$1
+fi
+if [[ -z "$branch" ]]
+then
+    echo "unknown branch"
+    echo "usage: merged_branches master"
+    exit 1
+fi
+git log --oneline $(git merge-base master $branch)..HEAD |grep -i ' Merge'

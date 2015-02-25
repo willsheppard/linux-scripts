@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Diff the current working directory against the branch it was cut from
+# i.e. show all the changes on this branch
+
+if [[ -z "$branch" ]]
+    echo "\$branch must be set to the current branch"
+    exit
+fi
+
+UP=$1
+if [[ -z "$UP" ]]
+then
+    UP="master"
+fi
+git diff $(git merge-base $UP $branch)

@@ -1,0 +1,2 @@
+CONTEXT=5
+grep -A $CONTEXT -B $CONTEXT $@

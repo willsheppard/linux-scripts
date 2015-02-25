@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Show git tags
+
+git for-each-ref --format="%(taggerdate): [%(refname)] \"%(contents:subject)\" (%(*authorname))" --sort=-taggerdate --count=1000000 refs/tags | sed "s/refs\/tags\///" | tac

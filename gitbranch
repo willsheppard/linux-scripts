@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Convenience script
+
+echo type it yourself:
+echo .
+echo "git checkout -t -b $1"
+echo .
+#git checkout -t -b $1
