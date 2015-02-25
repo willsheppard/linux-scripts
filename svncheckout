@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Check out an SVN branch by copying a cut-down template
+# which has had all the files deleted except .svn/*
+# Then switch to that branch. This can be done very quickly.
+#
+# The alternative is to download the entire codebase
+# for every branch, which is much slower.
+#
+# Expects working directory to be ~/dev/
+
+ART=$1
+NAME=$2
+
+if [[ -z "$ART" || -z "$NAME" ]]
+then
+    echo "usage: svncheckout branch_name your_short_name"
+    exit 1;
+fi
+
+if [[ -z "$SVN" ]]
+then
+    echo "\$SVN must be defined as the path to the subversion repo"
+    exit
+fi
+
+if [[ ! -d "_template" ]]
+then
+    echo "Directory _template must exist."
+    echo "Suggestion for creating:"
+    echo "    cp trunk _template"
+    echo "    find trunk/ -type f |grep -v .svn|xargs rm"
+    exit
+fi
+
+
+NOW=$(date +'%Y%M%d-%H%M%S')
+cd $HOME/dev
+rm -rf _random
+time cp -rp _template/ _random
+mv _random/ $ART
+ln -s $ART $NAME
+cd $NAME
+
+time svn switch $SVN/branches/$ART
+
+echo
+echo "If this has worked, you should see a lot of 'Restored file xxxxx' lines above"
+echo "(above the list of files which were changed in this branch)"
+echo

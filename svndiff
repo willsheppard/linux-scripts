@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Display a code diff in vim, for syntax highlighting
+# Also run "svn status" afterwards
+
+DIFF=$(svn diff $@)
+
+if [[ -n "$DIFF" ]]
+then
+    # There are modifications
+    #   -x -p = show function name in diff output
+    #   -x -u = unified diff output
+    svn diff -x -p $@ | vi -R -
+else
+    echo "No modifications"
+fi
+
+# Also display any new files
+echo
+echo "svn status"
+svn status

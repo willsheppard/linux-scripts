@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Helper script to remember this company's subversion message format
+
+if [[ -z "$ART" ]]
+then
+    echo "please set:"
+    echo "export ART=artf1234567"
+    exit 1;
+fi
+
+echo "svn commit -m '[$ART] - foo' Filename.pm"
+echo
+

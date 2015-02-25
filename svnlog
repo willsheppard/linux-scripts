@@ -1,0 +1,3 @@
+# Shortcut for displaying filenames in the log
+
+svn log -v $@ |less

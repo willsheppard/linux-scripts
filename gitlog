@@ -1,0 +1,1 @@
+git log --color --stat=200,200 --decorate --abbrev-commit $@
