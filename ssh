@@ -1,0 +1,2 @@
+# Always forward ssh authentication agent
+/usr/bin/ssh -A $@
