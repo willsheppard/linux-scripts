@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Convenience script to do a "git --fetch" before pushing
+# in order to avoid conflicts
+
+if [[ -z "$branch" ]]
+    echo "\$branch must be set to the current branch"
+    exit
+fi
+
+if [[ "$branch" == "master" ]]
+then
+    echo "I'm not trusted to push to master, do it manually please"
+    exit
+fi
+
+git fetch --all
+
+echo .
+echo "git push origin $branch"
+echo .
+
+git push origin $branch

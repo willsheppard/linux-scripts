@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# See docs: http://ss64.com/bash/read.html
+
+#read -p "Are you sure to continue? (Y|N) " -n 1 XT_USER_REPLY
+read -p "Are you sure to continue? (Y|N) " XT_USER_REPLY
+
+if [[ ! $XT_USER_REPLY =~ ^[Yy](es)?$ ]]
+then
+    echo
+    echo "See you next time!"
+    exit 1
+else
+    echo
+    echo "Wooho, you're really, really sure"
+    exit 0
+fi
+
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Take a copy & pasted filename and line number from a Perl error message,
+#   e.g. "Error occurred at /path/to/some/Module.pm line 82."
+# ...and open the file at that line
+
+FILENAME=$1
+LINE_NUMBER_WITH_DOT=$3
+
+if [[ -z "$LINE_NUMBER_WITH_DOT" ]]
+then
+    vim $FILENAME
+else
+    LINE_NUMBER=$(echo $LINE_NUMBER_WITH_DOT | sed 's/\.$//')
+    echo vim $FILENAME +$LINE_NUMBER
+    vim $FILENAME +$LINE_NUMBER
+fi

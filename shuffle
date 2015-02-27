@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Print out the lines from a file, in a random order
+
+FILE=$1
+if [[ -z $FILE ]]
+then
+    echo "usage: shuffle [filename]"
+    exit 1
+fi
+
+for i in `cat $FILE`; do echo "$RANDOM $i"; done | sort | sed -r 's/^[0-9]+ //'

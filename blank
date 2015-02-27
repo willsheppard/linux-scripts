@@ -1,0 +1,2 @@
+#!/bin/bash
+for k in $(seq 1 30); do echo; done

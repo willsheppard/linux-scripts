@@ -1,0 +1,5 @@
+# Given a Perl module name, attempt to install the corresponding Ubuntu package
+
+PACKAGE=$(echo "$1" | perl -e '$x=<>; chomp($x); $x=~s/::/-/g; $x=lc($x); print "lib$x-perl"')
+echo Fetching $PACKAGE
+sudo apt-get install $PACKAGE

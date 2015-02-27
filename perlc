@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Shortcut for checking if a list of perl files compile
+
+for k in $@
+do
+    perl -Ilib -It/lib -c $k
+done

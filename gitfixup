@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Automate autosquashing for a 'fixup' commit
+#
+# See git man pages for commit and rebase for details
+
+file=$1
+
+if [[ -z "$file" ]]
+then
+    echo "usage: $0 [file]"
+    exit
+fi
+
+echo
+echo "    Fixing up file $file..."
+echo
+read -p "Are you sure the last commit to this file has not been pushed? [type Enter to continue or Ctrl-C to abort] "
+
+# get the last commit message for the file
+last_commit=$(git log -n1 -- $file | head -5 | tail -1 | sed 's/^\s\+//')
+
+# commit the fixup
+git commit -m"fixup! $last_commit" $file
+
+if [[ -n $(echo $(git log --oneline --stat -n2) | LAST=$last_commit perl -lne'$last = $ENV{LAST}; m{fixup! $LAST.+$LAST} && print 1') ]]
+then
+    # The last two commit messages are the fixup and the fixee
+    # Rebase and squash them automatically
+    echo
+    echo "Auto-auto-squashing, please wait..."
+    echo
+    sleep 1;
+
+    # --autosquash only works with --interactive
+    # ...so tell vim to save and close immediately
+    GIT_EDITOR="vim -c ':wq'" git rebase --no-verify --interactive --autosquash HEAD^^
+
+    echo
+    echo "I have committed, rebased and auto-squashed that for you..."
+    echo "    Would you like fries with that?"
+    echo
+else
+    # It's more complicated...
+
+    # Not implemented
+
+    #LAST_20=$(echo $(git log --oneline --stat -n20))
+    #UP_TO_FIXEE=$(echo $LAST_20 | LAST=$last_commit sed 's/')
+    #if [[ -z $(echo $(git log --oneline --stat -n20) | LAST=$last_commit perl -lne'$last = $ENV{LAST}; m{fixup! $LAST.+$LAST} && print 1') ]]
+    #then
+    #    # The fixee commit has not been pushed
+    #    # Rebase and squash them
+    #fi
+
+    # Give manual instructions
+    echo
+    echo Now...
+    echo
+    echo "git rebase -i --autosquash HEAD^^"
+    echo
+
+fi

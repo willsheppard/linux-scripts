@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Disable other git hooks before rebasing (if doing a reword),
+#   as they cause "error: Error building trees".
+#   may be caused by those hooks performing a fetch
+
+# Disable Ctrl-C, because interrupting this script could
+# accidentally leave the git hooks disabled
+trap '' 2
+
+# Disable git hooks
+echo "disabling git hooks"
+mv .git/hooks/post-checkout{,.disabled}
+mv .git/hooks/pre-commit{,.disabled}
+
+# Do the rebase
+git rebase $@
+
+# Re-enable git hooks
+echo "re-enabling git hooks"
+mv .git/hooks/post-checkout.disabled .git/hooks/post-checkout
+mv .git/hooks/pre-commit.disabled .git/hooks/pre-commit
+
+echo
+echo "done"
+
+# Re-enable Ctrl-C
+trap 2
