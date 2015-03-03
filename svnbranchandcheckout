@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Short version of 'svnbranch' and 'svncheckout' scripts
+#   if you know what you're doing.
+
+# Artefact ID (AKA issue/ticket)
+ART=$1
+NAME=$2
+
+if [[ -z "$ART" || -z "$NAME" ]]
+then
+    echo "usage: svnbranchandcheckout branch_name your_short_name"
+    exit 1;
+fi
+
+if [[ -z "$SVN" ]]
+then
+    echo "\$SVN must be defined as the path to the subversion repo"
+    exit
+fi
+
+
+# Check if branch already exists
+echo "Checking if branch already exists..."
+echo "svn ls $SVN/branches/ --verbose |grep $ART"
+EXISTING_BRANCH=$(svn ls $SVN/branches/ --verbose |grep $ART)
+echo
+
+if [[ -n $EXISTING_BRANCH ]]
+then
+    echo "WARNING: Branch $ART already exists, cannot create it."
+    echo $EXISTING_BRANCH
+    exit 1
+else
+    # Create branch
+    echo "Branch not found, creating it..."
+    echo
+    echo "svn copy -m \"[$ART] - Branching trunk\" $SVN/trunk $SVN/branches/$ART"
+    svn copy -m "[$ART] - Branching trunk" $SVN/trunk $SVN/branches/$ART
+    echo
+fi
+
+# Check out branch
+
+if [[ ! -d "_template" ]]
+then
+    echo "Directory _template must exist."
+    echo "Suggestion for creating:"
+    echo "    cp trunk _template"
+    echo "    find trunk/ -type f |grep -v .svn|xargs rm"
+    exit
+fi
+
+
+NOW=$(date +'%Y%M%d-%H%M%S')
+cd $HOME/dev
+rm -rf _random
+time cp -rp _template/ _random
+mv _random/ $ART
+ln -s $ART $NAME
+cd $NAME
+
+time svn switch $SVN/branches/$ART
+
+echo
+echo "If this has worked, you should see a lot of 'Restored file xxxxx' lines above"
+echo "(above the list of files which were changed in this branch)"
+echo
