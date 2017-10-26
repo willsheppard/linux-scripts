@@ -1,0 +1,5 @@
+git diff --relative --color --histogram $@
+
+echo
+
+git status
