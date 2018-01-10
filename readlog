@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Pretty-prints a JSON-format log file
+
+#export COMMAND='json_pp' # From Perl JSON module. Does not sort keys
+export COMMAND='python -mjson.tool' # Sorts keys
+
+perl -lne'$q = "\047"; s/$q/$q\\$q$q/g; $tr = ("=") x 120; print $tr; $s = "echo $q$_$q | $ENV{COMMAND}"; print `$s`' $@
+
+# Explanation:
+# * define $q so we can use single quote characters inside the Perl single-quoted command.
+# * replace any single quotes in the input data with '\'', which ends the string, escapes a single quote, and begins the string again
+# * print a divider
+# * compose the command to pretty-print the input data
+# * execute the command and print the result 
