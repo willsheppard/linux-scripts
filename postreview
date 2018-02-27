@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -vx
+
+rbt post $@ `git merge-base master HEAD` `git rev-parse HEAD`
