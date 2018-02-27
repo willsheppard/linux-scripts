@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Quickly check the syntax of perl modules you've just modified
+
+for module in `git diff --stat=200,200|grep '.pm '|perl -lane'print$F[0]'|tac`
+do
+    perl -c -I lib -I t/lib $module
+done
