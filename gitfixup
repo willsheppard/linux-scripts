@@ -3,6 +3,15 @@
 # Automate autosquashing for a 'fixup' commit
 #
 # See git man pages for commit and rebase for details
+#
+# Update: This script could be replaced with the built-in command 'git commit --amend'
+
+echo
+echo "use this instead: git commit --amend"
+echo
+exit
+
+############################################
 
 file=$1
 
