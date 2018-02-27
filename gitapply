@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Find and apply a stash by name
+
+TERM="$1"
+if [[ -z "$TERM" ]]; then
+    echo "usage: gitapply [grep string]"
+    exit
+fi
+
+STASH=`git stash list | grep "$TERM" | cut -d: -f1`
+if [[ -z "$STASH" ]]; then
+    echo "Could not find a stash containing the term '$TERM'"
+    exit
+fi
+
+git stash apply $STASH
+
