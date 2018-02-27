@@ -1,0 +1,4 @@
+TERM="$1"
+DIR=${2:-.}
+set -x
+grep -r --color "$TERM" $DIR | grep -v '.git' | grep --color "$TERM"
