@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+# highlight search terms
+
+use Term::ANSIColor;
+
+my $term = $ARGV[0] or die "usage: hi regex\n";
+my $color = $ARGV[1] // "red";
+
+while (<STDIN>) {
+    s/($term)/color($color).$1.color("reset")/eig;
+    print $_;
+}
