@@ -6,10 +6,23 @@
 # but the end commit will always be HEAD
 # for more control, see https://stackoverflow.com/a/15265846/137948
 
-git filter-branch --commit-filter 'if [ "$GIT_AUTHOR_NAME" = "Will Sheppard" ]; then
-    export GIT_AUTHOR_NAME="Will Sheppard";
+# Change all commits on the branch
+#git filter-branch --commit-filter 'if [ "$GIT_AUTHOR_NAME" = "Will Sheppard" ]; then
+#    export GIT_AUTHOR_NAME="Will Sheppard";
+#    export GIT_AUTHOR_EMAIL=nobody@example.com;
+#    export GIT_COMMITTER_NAME="Will Sheppard";
+#    export GIT_COMMITTER_EMAIL=nobody@example.com;
+#fi;
+#git commit-tree "$@"'
+
+# Change only commits in a range.
+# Warning: Any commits after this range will also change their SHA1
+#commita=$1
+#commitb=$2
+git filter-branch --env-filter "
+    if git rev-list $1..$2 | grep \$GIT_COMMIT; then
+    export GIT_AUTHOR_NAME=\"Will Sheppard\";
     export GIT_AUTHOR_EMAIL=nobody@example.com;
-    export GIT_COMMITTER_NAME="Will Sheppard";
+    export GIT_COMMITTER_NAME=\"Will Sheppard\";
     export GIT_COMMITTER_EMAIL=nobody@example.com;
-fi;
-git commit-tree "$@"'
+fi" -- ^$1 HEAD
