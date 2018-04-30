@@ -2,8 +2,6 @@
 
 # Convenience script
 
-echo type it yourself:
-echo .
-echo "git checkout -t -b $1"
-echo .
-#git checkout -t -b $1
+echo "Type this:"
+echo "git checkout -b $1"
+echo "git push -u origin $1"
