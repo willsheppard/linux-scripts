@@ -5,4 +5,4 @@
 TERM="$1"
 DIR=${2:-.}
 set -x
-find $DIR -name "$TERM"
+find $DIR -name "$TERM" | egrep -v 'blib|.git'
