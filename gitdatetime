@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# change the date for a specific commit
+
+usage() {
+    echo "Usage: $0 [number of commits before head] [date, e.g. \"Thu Oct 04 09:03:10 2018 -0000\"]"
+    exit
+}
+
+N="$1"
+if [[ -z "$N" ]]
+then
+    usage
+fi
+export TARGET_COMMIT=$(git show HEAD~$N --format=%H --no-notes --no-patch)
+echo TARGET_COMMIT = $TARGET_COMMIT
+
+D="$2"
+if [[ -z "$D" ]]
+then
+    usage
+fi
+export NEW_DATE="$D"
+echo NEW_DATE = "$NEW_DATE"
+
+git filter-branch --force --env-filter \
+    '#echo GIT_COMMIT = "$GIT_COMMIT"
+    #echo TARGET_COMMIT = "$TARGET_COMMIT"
+    if [[ "$GIT_COMMIT" == "$TARGET_COMMIT" ]]
+     then
+         export GIT_AUTHOR_DATE="$NEW_DATE"
+         export GIT_COMMITTER_DATE="$NEW_DATE"
+     fi' $TARGET_COMMIT^1..HEAD
