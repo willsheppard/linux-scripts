@@ -1,4 +1,12 @@
+echo "use ack and .ackrc instead"
+exit
+
 TERM="$1"
 DIR=${2:-.}
 set -x
-grep -r --color "$TERM" $DIR | egrep -v 'blib|.git' | grep --color "$TERM"
+grep -r --color --text "$TERM" $DIR \
+| egrep --text -v 'blib|\.git'      \
+| grep --color --text "$TERM"
+
+#| egrep --text -v '\.js|\.css'      \
+#| egrep --text -v '/local/'         \
