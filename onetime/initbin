@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# strict mode
+set -euo pipefail
+IFS=$'\n\t'
+
+read -r -p "Are you sure you want to install packages? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+	echo "Very well, continuing box initialisation..."
+        ;;
+    *)
+	echo "Aborted."
+	exit 1
+        ;;
+esac
+
+sleep 5
+
+set -vx
+
+for package in ruby perl python3 nginx; do
+    sudo apt -y install $package
+done
