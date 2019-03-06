@@ -30,6 +30,7 @@ git clone https://github.com/willsheppard/stuff-and-things.git
 git clone https://github.com/willsheppard/college-pascal.git
 git clone https://github.com/willsheppard/ruby-koans-exercises.git
 git clone https://github.com/willsheppard/learning-ruby.git
+git clone https://github.com/willsheppard/python_koans.git
 
 cd ~
 echo "" >> .bashrc
