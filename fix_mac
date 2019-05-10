@@ -1,0 +1,4 @@
+# Resolve common issues on Mac OSX
+
+for k in `ps aux|egrep 'assistantd|cloudd'|grep -v grep|perl -lane'print$F[1]'`; do kill -9 $k; done
+
