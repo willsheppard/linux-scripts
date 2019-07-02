@@ -1,0 +1,1 @@
+youtube-dl "$1" --ignore-errors --extract-audio --audio-quality 0 --audio-format mp3 --prefer-ffmpeg --output "%(title)s.%(ext)s"
