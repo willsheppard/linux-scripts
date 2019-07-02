@@ -19,6 +19,6 @@ sleep 5
 
 set -vx
 
-for package in ruby perl python3 nginx; do
+for package in ruby perl python3 nginx youtube-dl ffmpeg; do
     sudo apt -y install $package
 done
