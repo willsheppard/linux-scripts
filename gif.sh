@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Create scrolling text gifs for Slack
+# Example usage:
+#   gif.sh -c white -o onoff.gif 'Have you tried turning it off and on again?'
 
 # Prerequisites:
 # * imagemagick brew install imagemagick
@@ -10,8 +12,12 @@
 
 # Adapted from https://gist.github.com/jmhobbs/b6ba8f5d1f816506e5b671c1bd89c723
 
+# Use https://ezgif.com/ to resize gifs to under 128Kb
+# so they can be used as emojis in slack
+
 set -euo pipefail
 IFS=$'\n\t'
+# uncomment to debug:
 #set -vx
 
 
@@ -144,9 +150,9 @@ case $COLOR in
 esac
 
 if [ "$FORCE_WHITE_TEXT" == 1 ]; then
-  FILL="#ffffff"
-#    BACKGROUND="#ffffff"
-#    FILL="#000000"
+#  FILL="#ffffff"
+    BACKGROUND="#ffffff"
+    FILL="#000000"
 fi
 
 # Make a "unique" prefix for this run
