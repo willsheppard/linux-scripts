@@ -1,0 +1,8 @@
+#!/bin/bash
+
+perl -le'foreach my $x (0..1000000) { print $x; }' > numbers.txt
+head -10000 numbers.txt > 10k
+
+# Save to an audio file on Mac (10k = 2 hours)
+say --input-file=10k --file-format=mp4f --output-file=numbers.mp4 --rate=500 --progress
+
