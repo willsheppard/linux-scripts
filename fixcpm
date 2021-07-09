@@ -1,0 +1,3 @@
+# Find failures in a cpm build.log
+
+cat ~/.perl-cpm/build.log | egrep -v 'Installing|Appending|Resolved|Executing|Building|Copying|Saving|Writing|Fetching|Successfully|Generating|Distribution|Using|Unpacking|Creating|Configuring|Checking|Found|Files found|Looks good| provides | cp |-> OK' | less
