@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Create a tunnel from localhost:1111 --> $JUMP_HOST --> $APP_SERVER --> $DATABASE_SERVER:3306
+# To use it: mysql --host=127.0.0.1 --port=1111 --protocol=tcp
+
+ssh -o TCPKeepAlive=yes -J $USER@$JUMP_HOST $USER@$APP_SERVER -L 1111:$DATABASE_SERVER:3306 -nNT -vvv
