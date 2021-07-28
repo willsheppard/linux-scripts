@@ -4,6 +4,7 @@
 perl -le'$tr = ("=") x 120; print $tr for 1..2'
 
 # Diff with useful options
+#git diff -b --relative --color --histogram $@
 git diff --relative --color --histogram $@
 
 echo
