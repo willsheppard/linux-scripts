@@ -1,6 +1,14 @@
 #!/bin/bash
 
-ag $@
+# for ack config, see ~/.ackrc
+
+ack "$@"
+
+exit $?;
+
+######### ag misses stuff... by design
+
+ag "$@"
 
 exit $?
 
