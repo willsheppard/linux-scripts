@@ -1,0 +1,48 @@
+############################ BASH SCRIPT
+
+$ cat monitor
+
+PW=$(grep 'postgresql:' /path/to/app.production.conf | perl -ne'm/APPNAME:(.+)@/ && print $1')
+
+# Allow reading commands line-by-line, even if they have spaces
+O=$IFS
+IFS=$(echo -en "\n\b")
+
+# Run each command
+for cmd in $(cat sql); do
+    echo "# RUNNING COMMAND: $cmd"
+
+    PGPASSWORD=$PW \
+    psql \
+        -h example.com \
+        --username=USER \
+        --database=DBNAME \
+        -c "$cmd"
+done
+
+# Reading line-by-line cleanup
+IFS=$O
+
+############################ SQL COMMANDS
+
+$ cat sql
+
+select now(); -- CMD1
+
+select * from minion_locks; -- CMD2
+
+select queue, count(*) from minion_jobs group by queue; --CMD3
+
+select queue, count(*) from minion_jobs where state != 'finished' group by queue; -- CMD4
+
+select queue, state, count(*) from minion_jobs group by queue, state order by queue; -- CMD5
+
+select queue, state, count(*), max(delayed), min(created) from minion_jobs where queue = 'QUEUENAME' group by queue, state order by queue; -- CMD6
+
+############################ RUN
+
+while /bin/true; do date; bash ./monitor >> log.txt; sleep 60; done &
+
+############################ INTERPRET LOG
+
+egrep 'CMD1|CMD6' -A 3 log.txt | egrep -v '\---|RUNNING'
