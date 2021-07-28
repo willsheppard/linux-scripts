@@ -1,0 +1,1 @@
+perl -I ~/alt/cpan/pinto/local/lib/perl5 ~/alt/cpan/pinto/local/bin/pinto --root $PINTO_MIRROR list | grep "$@"
