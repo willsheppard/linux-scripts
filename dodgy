@@ -1,2 +1,2 @@
 # Find dodgy (non-ascii) characters in a file
-perl -lne'$x = $_; @a=split(//,$x); foreach $aa (@a) { if (ord($aa) < 32 || ord($aa) > 127) { print $ARGV.":\n\t$x"; last } }' $1
+perl -lne'$x = $_; @a=split(//,$x); foreach $aa (@a) { if (ord($aa) < 32 || ord($aa) > 127) { print $ARGV.":\n\t$x"; last } }' "$1"
