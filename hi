@@ -2,6 +2,9 @@
 
 # highlight search terms
 
+select STDERR; $| = 1;
+select STDOUT; $| = 1;
+
 use Term::ANSIColor;
 
 my $term = $ARGV[0] or die "usage: hi regex [color] [whole line?]\n";
