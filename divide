@@ -1,2 +1,3 @@
 # print a divider
-perl -le'$tr = ("=") x 120; print $tr'
+LENGTH=${1:-80}
+perl -le'$tr = ("=") x $ARGV[0]; print $tr' "$LENGTH"
