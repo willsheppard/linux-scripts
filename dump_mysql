@@ -2,30 +2,34 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-# Get password from perl mojo app config
-PW=$(grep -A 3 FOO /path/to/app/app.production.conf | tail -1 | perl -ne'm/> .(.+)..$/ && print $1')
+PREFIX="foocorp"
+APP="fooclient"
+
+MONIKER="${PREFIX}-${APP}"
+DB="${PREFIX}_${APP}"
+DIR="${PREFIX}${APP}"
+
+# Get hostname from mojo config
+HOST=$(grep dbi:mysql /srv/deploy_aws_${DIR}/current/${MONIKER}.production.conf | tail -1 | perl -ne'm/host=(.+?);/ && print $1')
 
 # Test connection
-mysql -h example.com --user=USER --database=DBNAME --password=$PW -e "show tables"
+mysql -h $HOST --user=$DB --database=$DB --password -e "show tables"
 
 # Actual dump
-mysqldump                              \
-    --no-create-db                     \
-    --no-create-info                   \
-    --skip-lock-tables                 \
-    --single-transaction               \
-    --complete-insert                  \
-    --host=example.com                 \
-    --user=USER                        \
-    --password=$PW                     \
-    --databases DBNAME                 \
-    --ignore-table=DBNAME.BAR          \
-    --ignore-table=DBNAME.BAZ          \
-    > ./app.full.2021-06-30.18-30.sql
+mysqldump                                      \
+    --no-create-db                             \
+    --skip-lock-tables                         \
+    --single-transaction                       \
+    --complete-insert                          \
+    --host=$HOST                               \
+    --user=$DB     				               \
+    --password                                 \
+    --databases $DB                            \
+    > ./$DB.dump.$(date +"%Y-%d-%m_%H%M%S").sql
 
 # Explanation
 # --no-create-db: prevents "CREATE DATABASE" command
-# --no-create-info: Only dumps data, not schema (if you manage schema separately)
+# --no-create-info: Only dumps data, not schema
 # --skip-lock-tables: Prevents "Access denied" error
 # --single-transaction: Ensures consistent snapshot
-# --complete-insert: Specify column names for inserts (this is important!)
+# --complete-insert: Specify column names for inserts
