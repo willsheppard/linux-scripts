@@ -25,7 +25,7 @@ mysqldump                                      \
     --user=$DB     				               \
     --password                                 \
     --databases $DB                            \
-    > ./$DB.dump.$(date +"%Y-%d-%m_%H%M%S").sql
+    > ./$DB.dump.$(date +"%Y-%m-%d_%H%M%S").sql
 
 # Explanation
 # --no-create-db: prevents "CREATE DATABASE" command
