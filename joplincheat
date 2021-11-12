@@ -1,0 +1,79 @@
+#!/bin/bash
+cat <<EOF | grep -v '#'
+## Joplin cheat sheet
+
+joplin # opens UI
+
+#joplin help
+
+joplin config
+joplin config -v
+#joplin help config
+
+joplin sync
+
+joplin status
+
+joplin ls /
+joplin ls -l /
+joplin ls -l -s updated_time /
+
+joplin use "Notebook name"
+joplin use note_id
+
+joplin ls
+joplin ls -l
+joplin ls -l -s title
+joplin ls -l -s title -r
+joplin ls -l -s updated_time
+joplin ls -l -s created_time
+joplin ls -n 3
+joplin ls -t n
+joplin ls -t t
+joplin ls -t nt
+joplin ls -f text
+joplin ls -f json | jq .
+
+joplin cat "Note name"
+joplin cat    note_id
+joplin cat -v note_id
+
+joplin tag list
+joplin tag list -l
+joplin tag list    tag_name
+joplin tag list -l tag_name
+
+joplin tag add     tag_name note_id
+joplin tag remove  tag_name note_id
+joplin tag list    tag_name
+joplin tag list -l tag_name
+joplin tag notetags note_id
+
+#joplin help batch
+#joplin help cat
+#joplin help config
+#joplin help cp
+#joplin help done
+#joplin help e2ee
+#joplin help edit
+#joplin help export
+#joplin help geoloc
+#joplin help import
+#joplin help ls
+#joplin help mkbook
+#joplin help mknote
+#joplin help mktodo
+#joplin help mv
+#joplin help ren
+#joplin help rmbook
+#joplin help rmnote
+#joplin help server
+#joplin help set
+#joplin help status
+#joplin help sync
+#joplin help tag
+#joplin help todo
+#joplin help undone
+#joplin help use
+#joplin help version
+EOF
