@@ -36,7 +36,8 @@ echo $command
 echo
 echo "To connect:"
 echo
-echo "MYSQL_PWD=<PASSWORD> mysql --protocol=tcp --host=127.0.0.1 --port=$local_port --user=<USERNAME> --database=<DATABASE_NAME>"
+echo "MYSQL_PWD=<PASSWORD> mysql -A --protocol=tcp --host=127.0.0.1 --port=$local_port --user=<USERNAME> --database=<DATABASE_NAME>"
+# Note: -A is the same as --no-auto-rehash, it means quicker startup at the expense of auto-completion of table names
 echo "or"
 echo "PGPASSWORD=<PASSWORD> psql --host localhost --port $local_port --username <USERNAME> --db <DATABASE_NAME>"
 
