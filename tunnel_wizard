@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Easily create an SSH tunnel from localhost --> $JUMP_HOST --> $APP_SERVER --> $DATABASE_SERVER
+
+# Usage:
+#
+#   $ tunnel_wizard
+
+# Non-interactive usage:
+#
+#   $ tunnel_wizard < tunnel_config_file
+#
+# ...where 'tunnel_config_file' contains for example:
+#
+# bastion.example.com
+# app.example.com
+# db.example.com
+# 3306
+# 7777
+# bob
+
+echo "==> SSH tunnel wizard"
+read -p "First jump host: " jump_host
+read -p "       App host: " app_host
+read -p "  Database host: " db_host
+read -p "  Database port: " db_port
+read -p "     Local port: " local_port
+read -p "       Username: " username
+
+command="ssh -o TCPKeepAlive=yes -J $username@$jump_host $username@$app_host -L $local_port:$db_host:$db_port -nNT"
+
+echo
+echo "SSH command:"
+echo $command
+
+echo
+echo "To connect:"
+echo
+echo "MYSQL_PWD=<PASSWORD> mysql --protocol=tcp --host=127.0.0.1 --port=$local_port --user=<USERNAME> --database=<DATABASE_NAME>"
+echo "or"
+echo "PGPASSWORD=<PASSWORD> psql --host localhost --port $local_port --username <USERNAME> --db <DATABASE_NAME>"
+
+echo
+echo "Starting tunnel... It will remain open while this process continues to run..."
+
+# Run tunnel command
+$($command)
+
