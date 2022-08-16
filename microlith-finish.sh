@@ -3,7 +3,7 @@
 # Revert modifications made to the checkout of a monolithic git repo,
 # restoring it ready for a branch to be pushed upstream.
 
-fixdir="$HOME/dev/p5-adcourier-sync"
+fixdir="$HOME/<YOUR_DIR_HERE>"
 currentdir=$(pwd)
 scriptdir=$(basedir $0 2>/dev/null || dirname $0 2>/dev/null)
 datafile="$scriptdir/microlith-data"
