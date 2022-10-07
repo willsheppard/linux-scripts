@@ -1,0 +1,16 @@
+series="iPlayer"
+if [[ -z "$1" ]]
+then
+    echo 'usage: vids [url] [url] ...'
+    echo '   or: vids $(cat urls_file)'
+    exit 1
+fi
+
+yt-dlp \
+--yes-playlist \
+--ignore-errors \
+--playlist-reverse \
+--parse-metadata "|$series:(?P<playlist_title>.+)" \
+--format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'  \
+--output "%(playlist_title)s/%(autonumber)02d - %(title)s.%(ext)s"   \
+$@
