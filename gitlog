@@ -1,1 +1,1 @@
-git log -b --color --stat=200,200 --decorate --abbrev-commit $@
+git log -b --relative --color --stat=200,200 --decorate --abbrev-commit $@
