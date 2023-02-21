@@ -1,1 +1,6 @@
-yt-dlp "$1" --ignore-errors -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' -o "%(playlist_title)s/%(playlist_index)d - %(title)s.%(ext)s"
+yt-dlp \
+--ignore-errors \
+--format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
+--output "%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
+--throttled-rate 100K \
+$@
