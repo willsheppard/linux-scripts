@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Sort unique
+sort | uniq -c | sort -h
