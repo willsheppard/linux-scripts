@@ -1,0 +1,19 @@
+id="$1"
+dir="${2:-ebooks}"
+
+if [[ -z "$id" ]]
+then
+    echo "usage: rip [id] [dir]"
+    exit 1
+fi
+
+mkdir -p "$dir"
+
+archive-org-downloader.py \
+-u https://archive.org/details/"$id" \
+-d "$dir" \
+-e 'toxecab979@dineroa.com' \
+-p 'br6YTQ9BXPhaCDHk'
+
+echo
+echo "Books written to dir: $dir"

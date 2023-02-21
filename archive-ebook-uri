@@ -1,0 +1,19 @@
+uri="$1"
+dir="${2:-ebooks}"
+
+if [[ -z "$uri" ]]
+then
+    echo "usage: rip [uri] [dir]"
+    exit 1
+fi
+
+mkdir -p "$dir"
+
+archive-org-downloader.py \
+-u "$uri" \
+-d "$dir" \
+-e 'toxecab979@dineroa.com' \
+-p 'br6YTQ9BXPhaCDHk'
+
+echo
+echo "Books written to dir: $dir"
