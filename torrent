@@ -1,0 +1,3 @@
+#!/bin/bash
+DDIR="$HOME/a/m/"
+transmission-cli --download-dir "$DDIR" $@
