@@ -1,0 +1,12 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use diagnostics;
+
+my ($repo) = $ARGV[0] =~ m{github.com/(.+)};
+die "usage: $0 https://github.com/xorg62/tty-clock"
+    unless $repo;
+
+my $cmd = 'git clone git@github.com:'. $repo . '.git';
+system($cmd);
