@@ -1,0 +1,2 @@
+# https://alvinalexander.com/blog/post/mac-os-x/change-title-bar-of-mac-os-x-terminal-window/
+echo -n -e "\033]0;$1\007"
