@@ -1,0 +1,3 @@
+#!/bin/bash
+
+vim $(a "$@" | cut -d: -f1 | uniq)
