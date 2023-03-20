@@ -2,7 +2,7 @@
 
 # Diff the microlith, taking account of modifications
 
-fixdir="$HOME/dev/p5-adcourier-sync"
+fixdir="$HOME/<YOUR_DIR_HERE>"
 currentdir=$(pwd)
 scriptdir=$(basedir $0 2>/dev/null || dirname $0 2>/dev/null)
 datafile="$scriptdir/microlith-data"

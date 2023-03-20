@@ -1,0 +1,24 @@
+file="$1"
+dir="${2:-ebooks}"
+
+if [[ -z "$file" ]]
+then
+    echo "usage: rip [file] [dir]"
+    exit 1
+fi
+
+mkdir -p "$dir"
+
+for k in $(cat "$file" | perl -lane'print$F[0]')
+do
+    archive-org-downloader.py \
+    -u https://archive.org/details/"$k" \
+    -d "$dir" \
+    -e 'toxecab979@dineroa.com' \
+    -p 'br6YTQ9BXPhaCDHk'
+
+    sleep 2;
+done
+
+echo
+echo "Books written to dir: $dir"
