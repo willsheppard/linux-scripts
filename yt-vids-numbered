@@ -2,6 +2,6 @@ yt-dlp \
 --yes-playlist \
 --ignore-errors \
 --format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
---output "%(playlist_title)s/%(title)s.%(ext)s" \
+--output "%(playlist_title)s/%(playlist_index)03d - %(title)s.%(ext)s" \
 --throttled-rate 100K \
 $@
