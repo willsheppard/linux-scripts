@@ -1,0 +1,7 @@
+yt-dlp \
+--ignore-errors \
+--format '248+bestaudio' \
+--output "%(playlist_title)s_really_1080p/%(playlist_index)02d - %(title)s.%(ext)s" \
+--throttled-rate 100K \
+$@
+

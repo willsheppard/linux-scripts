@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Summarise the sizes of subdirectories
+
+DIR=${1:-.}
+du -hs $DIR
+echo -----------------------------------
+du -hs $DIR/* | sort -h
