@@ -1,0 +1,15 @@
+echo
+echo before
+du -hs /usr/lib
+du -hs /usr/lib/x86_64-linux-gnu
+
+echo
+sudo apt remove $(dpkg-query --show 'linux-modules-*' | cut -f1 | grep -v "$(uname -r)")
+
+echo
+echo after
+du -hs /usr/lib
+du -hs /usr/lib/x86_64-linux-gnu
+
+echo
+

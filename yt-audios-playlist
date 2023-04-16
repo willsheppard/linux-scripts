@@ -1,0 +1,11 @@
+# apt install ffmpeg
+# https://github.com/rg3/youtube-dl/blob/master/README.md#how-do-i-update-youtube-dl
+
+yt-dlp \
+--ignore-errors \
+--extract-audio \
+--audio-quality 0 \
+--audio-format mp3 \
+--prefer-ffmpeg \
+--output "%(playlist_title)s/%(playlist_index)02d - %(title)s.%(ext)s" \
+$@
