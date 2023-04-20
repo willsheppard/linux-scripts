@@ -4,7 +4,22 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-read -r -p "Are you sure this is a new box without anything on it yet? [y/N] " response
+REPOS="
+send-me-motd
+misc-config
+linux-scripts
+dotfiles
+rfobasic
+stuff-and-things
+college-pascal
+ruby-koans-exercises
+learning-ruby
+python_koans
+"
+
+echo "This is intended to run on a new box without anything on yet."
+echo "Repos:" $REPOS
+read -r -p "Are you sure you want to git clone? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY]) 
 	echo "Very well, continuing box initialisation..."
@@ -21,16 +36,9 @@ set -vx
 
 mkdir -p ~/dev
 cd ~/dev
-git clone https://github.com/willsheppard/send-me-motd.git
-git clone https://github.com/willsheppard/misc-config.git
-git clone https://github.com/willsheppard/linux-scripts
-git clone https://github.com/willsheppard/dotfiles.git
-git clone https://github.com/willsheppard/rfobasic.git
-git clone https://github.com/willsheppard/stuff-and-things.git
-git clone https://github.com/willsheppard/college-pascal.git
-git clone https://github.com/willsheppard/ruby-koans-exercises.git
-git clone https://github.com/willsheppard/learning-ruby.git
-git clone https://github.com/willsheppard/python_koans.git
+for repo in $REPOS; do
+    git clone https://github.com/willsheppard/$repo
+done
 
 cd ~
 echo "" >> .bashrc
