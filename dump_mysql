@@ -18,6 +18,7 @@ mysql -h $HOST --user=$DB --database=$DB --password -e "show tables"
 # Actual dump
 mysqldump                                      \
     --no-create-db                             \
+    --no-tablespaces                           \
     --skip-lock-tables                         \
     --single-transaction                       \
     --complete-insert                          \
@@ -33,3 +34,4 @@ mysqldump                                      \
 # --skip-lock-tables: Prevents "Access denied" error
 # --single-transaction: Ensures consistent snapshot
 # --complete-insert: Specify column names for inserts
+# --no-tablespaces: Prevent error: 'Access denied; you need (at least one of) the PROCESS privilege(s) for this operation'
