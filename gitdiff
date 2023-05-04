@@ -1,12 +1,27 @@
 #!/bin/bash
 
-# Display a visual divider
-perl -le'$tr = ("=") x 120; print $tr for 1..2'
+currentdir=$(pwd)
 
-# Diff with useful options
-#git diff -b --relative --color --histogram $@
-git diff --no-prefix --relative --color --histogram $@
+# Setup for microlith
+fixdir="$HOME/dev/foo-repo"
 
-echo
+if [[ "$currentdir" == "$fixdir" ]]
+then
+    ################# MICROLITH
 
-git status
+    echo "Microlith diff"
+    microlith-diff.sh $@
+else
+    ################# NORMAL
+
+    # Display a visual divider
+    perl -le'$tr = ("=") x 120; print $tr for 1..2'
+
+    # Diff with useful options
+    git diff --no-prefix --relative --color --histogram $@
+
+    echo
+
+    git status
+
+fi
