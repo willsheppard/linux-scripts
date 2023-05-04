@@ -7,5 +7,5 @@ yt-dlp \
 --audio-quality 0 \
 --audio-format mp3 \
 --prefer-ffmpeg \
---output "%(playlist_title)s/%(album)s - %(playlist_index)02d - %(artist)s - %(title)s.%(ext)s" \
+--output "%(playlist_title)s/%(playlist_index)02d - %(artist)s - %(title)s.%(ext)s" \
 $@
