@@ -8,4 +8,7 @@ yt-dlp \
 --audio-format mp3 \
 --prefer-ffmpeg \
 --output "%(playlist_title)s/%(album)s - %(playlist_index)02d - %(artist)s - %(title)s.%(ext)s" \
+--throttled-rate 100K \
+--write-description \
+--write-info-json \
 $@

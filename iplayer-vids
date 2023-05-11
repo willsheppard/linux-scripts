@@ -11,4 +11,6 @@ yt-dlp \
 --ignore-errors \
 --format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
 --output "$series/%(autonumber)02d - %(title)s.%(ext)s"    \
+--write-description \
+--write-info-json \
 $@

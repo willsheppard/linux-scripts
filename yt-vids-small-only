@@ -5,4 +5,6 @@ yt-dlp \
 --output "%(playlist_title)s/%(title)s.%(ext)s" \
 --throttled-rate 100K \
 --match-filters 'filesize_approx<300M' \
+--write-description \
+--write-info-json \
 $@

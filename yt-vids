@@ -3,4 +3,6 @@ yt-dlp \
 --format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
 --output "%(playlist_title)s/%(title)s.%(ext)s" \
 --throttled-rate 10K \
+--write-description \
+--write-info-json \
 $@
