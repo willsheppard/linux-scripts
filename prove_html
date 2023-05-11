@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export OUTFILE="/tmp/test_out.html"
+
+export     TAP_HTML_LIB="$HOME/alt/cpan/tap_html/local/lib/perl5"
+export HTML_DISPLAY_LIB="$HOME/alt/cpan/html_display/local/lib/perl5"
+
+PERL5LIB="$TAP_HTML_LIB:$PERL5LIB" \
+prove -m -P HTML=outfile:$OUTFILE -lr $@
+
+perl -I $HTML_DISPLAY_LIB -MHTML::Display \
+-e 'HTML::Display->new->display(file => $ENV{OUTFILE})'
+

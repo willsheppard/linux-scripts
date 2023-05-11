@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# strict mode
+set -euo pipefail
+IFS=$'\n\t'
+
+REPOS="
+send-me-motd
+misc-config
+linux-scripts
+dotfiles
+rfobasic
+stuff-and-things
+college-pascal
+ruby-koans-exercises
+learning-ruby
+python_koans
+"
+
+echo "This is intended to run on a new box without anything on yet."
+echo "Repos:" $REPOS
+read -r -p "Are you sure you want to git clone? [y/N] " response
+case "$response" in
+    [yY][eE][sS]|[yY]) 
+	echo "Very well, continuing box initialisation..."
+        ;;
+    *)
+	echo "Aborted."
+	exit 1
+        ;;
+esac
+
+sleep 5
+
+set -vx
+
+mkdir -p ~/dev
+cd ~/dev
+for repo in $REPOS; do
+    git clone https://github.com/willsheppard/$repo
+done
+
+cd ~
+echo "" >> .bashrc
+echo "# WS custom setup" >> .bashrc
+echo "source ~/dev/dotfiles/.bashrc" >> .bashrc
+ln -s dev/dotfiles/.gitconfig .gitconfig
+ln -s dev/dotfiles/.vimrc .vimrc
+

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Setup ansible host and use it to provision server on DigitalOcean
+#
+# https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-automate-initial-server-setup-on-ubuntu-20-04
+# https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-ansible-on-ubuntu-20-04
+# https://docs.digitalocean.com/reference/doctl/how-to/install/
+
+HOST_IP=${1:-''}
+if [[ "$HOST_IP" == "" ]]
+then
+    echo "usage: $0 [Host IP]"
+    exit 1
+fi
+
+sudo apt install -y ansible
+
+...todo...define IP...
+echo '[servers] server1 ansible_host=1.2.3.4' \
+    >> /etc/ansible/hosts
+
+

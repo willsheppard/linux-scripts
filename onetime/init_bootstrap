@@ -1,0 +1,28 @@
+cd ~
+
+# fetch dotfiles
+mkdir -p dev
+mkdir -p alt
+cd alt
+#git clone https://github.com/willsheppard/dotfiles
+git clone git@github.com:willsheppard/dotfiles.git
+
+# set up dotfiles
+cd ~
+echo "" >> .bashrc
+echo "# Custom setup" >> .bashrc
+echo "source ~/alt/dotfiles/.bashrc" >> .bashrc
+ln -s ~/alt/dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/alt/dotfiles/.vimrc ~/.vimrc
+
+source ~/.bashrc
+
+# set up github
+mkdir -p ~/.ssh
+vi ~/.ssh/id_ed25519.github
+	# ...paste in private SSH key from $password_manager
+chmod 600 ~/.ssh/id_ed25519.github
+
+# set up ssh
+vi ~/.ssh/config
+	# ...paste in ssh config from $password_manager

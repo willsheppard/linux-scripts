@@ -1,0 +1,10 @@
+doctl
+
+doctl auth init # enter token
+
+doctl projects list --output json
+
+doctl auth switch --context ansible
+doctl auth switch --context default
+
+doctl compute size list > sizes
