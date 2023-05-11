@@ -3,6 +3,6 @@
 # Summarise the sizes of subdirectories
 
 DIR=${1:-.}
-du -hs $DIR
+du -hs "$DIR"
 echo -----------------------------------
-du -hs $DIR/* | sort -h
+du -hs "$DIR"/* | sort -h
