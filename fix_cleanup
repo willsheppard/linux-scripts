@@ -1,3 +1,7 @@
+# Reclaim disk space on Ubuntu
+
+# /usr/lib
+
 echo
 echo before
 du -hs /usr/lib
@@ -12,4 +16,19 @@ du -hs /usr/lib
 du -hs /usr/lib/x86_64-linux-gnu
 
 echo
+
+# /var/log/journal
+
+sudo journalctl --vacuum-size=200M
+echo SystemMaxUse=200M | sudo tee -a /etc/systemd/journald.conf
+
+# Disabled snaps
+# See also https://askubuntu.com/q/1036633
+
+bash remove-disabled-snaps.sh
+
+# Snap cache
+
+sudo du -sh /var/lib/snapd/cache/                  # Get used space
+sudo find /var/lib/snapd/cache/ -exec rm -v {} \;  # Remove cache
 
