@@ -1,0 +1,19 @@
+export MEM_LOG="/Users/will/data/low_memory.log"
+export MEM_LIMIT="30"
+export MEM_WAIT="60"
+
+while true
+do
+    export FREE_MEM=$(sudo memory_pressure -Q | perl -lane'm/System-wide memory free percentage: (\d+)/ && print $1')
+    export NOW=$(/usr/local/bin/date --iso-8601=ns)
+    if [[ "$FREE_MEM" -le "$MEM_LIMIT" ]]
+    then
+        echo "$NOW -- $FREE_MEM pressure" | tee $MEM_LOG
+        echo ^G # beep
+        /usr/local/bin/notify -s -c 30 -t "Alert" -m "Memory pressure: $FREE_MEM" > /dev/null
+    else
+        echo "$NOW -- $FREE_MEM" | tee $MEM_LOG
+    fi
+    
+    sleep $MEM_WAIT
+done
