@@ -1,0 +1,1 @@
+perltidy -fws -nolc -nolq -l=120 -cti=0 $@

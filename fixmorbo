@@ -1,0 +1,1 @@
+echo 'perl local/bin/morbo --listen https://*:3000 bin/app.pl'

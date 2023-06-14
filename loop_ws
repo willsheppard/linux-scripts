@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Loop over lines, where the lines contain whitespace.
+
+O=$IFS
+IFS=$(echo -en "\n\b")
+
+#for f in $(cat playlists.2); do echo "$f" | jq '.contents.singleColumnBrowseResultsRenderer.tabs[].tabRenderer.content.sectionListRenderer.contents[].musicCarouselShelfRenderer.contents[].musicTwoRowItemRenderer.title.runs[] | { name: .text, id: .navigationEndpoint.browseEndpoint.browseId }'; done; IFS=$O
+

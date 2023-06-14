@@ -1,0 +1,40 @@
+#!/bin/bash
+
+    # Remove cruft:
+    #
+    # 2023-02-11 11:10:48 :: 5681 :: 5681 :: ......
+    # 2023-02-09 08:16:29 :: 7643 :: ........
+    # 2023-02-09 08:16:32 :: 13898 :: [[andritzcomp::1675930503]] :: REF[[749584602-4587]] :: RAW[[749584602 :: 6" Horizontal Boring Mill Operator]] ........
+    # Thu Feb  9 08:16:32 2023 :: 13898 :: .......
+    # [RULE ID FOUND: CPW6LNB0B51H4JQTMEI9AHNACCGHMA] ......
+    # 764750402-4587: Fri Feb 10 08:17:52 2023: .......
+    # YES
+    # ...truncate...
+    # [blank lines]
+
+    echo "-------------------------------------------------------------------------------------------------------------------------------------------------"
+
+    perl -plne's/^[\d\-]+\s[\d:]+\s::\s\d+\s::\s\d+\s::\s//' \
+    \
+    | perl -plne's/^[\d\-]+\s[\d:]+\s::\s\d+\s::\s//' \
+    \
+    | perl -plne's/\[\[.+\]\]\s//' \
+    \
+    | perl -plne's/^\S\S\S\s\S\S\S\s\s?\d+\s[\d:]+\s\d{4}\s::\s\d+\s::\s//' \
+    \
+    | perl -plne's/^\[RULE ID FOUND: \S+\]\s//' \
+    \
+    | perl -plne's/^\d+-\d+:\s\S\S\S\s\S\S\S\s\s?\d+\s[\d:]+\s\d{4}:\s//' \
+    \
+    | sed '/^YES$/d' \
+    \
+    | sed '/^$/d' \
+    \
+    | perl -plne's/^(.{180}).+/$1... (truncated)/' \
+    \
+    | /usr/local/bin/cat
+
+
+    # TODO
+    # perl -lne'if (/^Ref/) { $ref++ } elsif ($ref && ! /^Ref/) { print "...(+ $ref more Ref lines)"; $ref = 0 }' ; echo; done
+

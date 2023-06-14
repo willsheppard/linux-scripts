@@ -1,0 +1,1 @@
+prove -I t/lib -flmrsj 9 t

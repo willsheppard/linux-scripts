@@ -1,0 +1,16 @@
+# Commands intended to be run by Autoenv via a .env file within a git checkout
+
+PERLVER="$1"
+
+echo "Running autoenv"
+  
+echo
+echo "Setting up Perl..."
+perlbrew use $PERLVER
+perl -le'print$^V'
+unset PERL5LIB; unset PERL_LOCAL_LIB_ROOT; eval $(perl -Mlocal::lib=./local)
+
+echo
+echo "Updating perl dependencies..."
+if [[ -n "$PINTO_MIRROR" ]]; then echo "Error: PINTO_MIRROR is not defined, cannot update."; exit 1; fi
+cpm install --resolver metadb --resolver 02packages,$PINTO_MIRROR

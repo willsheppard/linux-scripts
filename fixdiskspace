@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Delete files I don't need, to save disk space
+
+# Mac OSX keeps downloading these updates
+sudo rm -rf "/Applications/Install macOS Mojave.app"
+sudo rm -rf "/Applications/Install macOS Monterey.app"
+sudo rm -rf "/Applications/Install macOS Big Sur.app"
+sudo rm -rf /Applications/Install\ macOS*
+
+# Homebrew keeps downloading these repos with full history
+BREW_DIR="/usr/local/Homebrew/Library/Taps/homebrew"
+sudo rm -rf "$BREW_DIR/homebrew-core"
+sudo rm -rf "$BREW_DIR/homebrew-cask"
+# Use a shallow clone
+git clone --depth=1 https://github.com/homebrew/homebrew-core.git "$BREW_DIR/homebrew-core"
+git clone --depth=1 https://github.com/homebrew/homebrew-cask.git "$BREW_DIR/homebrew-cask"
+
