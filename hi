@@ -13,12 +13,8 @@ my $line = $ARGV[2] // 0;
 
 while (my $c = <STDIN>) {
     if ($line) {
-        if ($c =~ /($term)/) {
-            print color($color).$c.color("reset");
-        }
-        else {
-            print $c;
-        }
+        $c =~ s/(.* $term .*)/color($color).$1.color("reset")/eigx;
+        print $c;
     } else {
         $c =~ s/($term)/color($color).$1.color("reset")/eig;
         print $c;
