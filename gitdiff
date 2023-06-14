@@ -3,7 +3,9 @@
 currentdir=$(pwd)
 
 # Setup for microlith
-fixdir="$HOME/dev/foo-repo"
+scriptdir=$(basedir $0 2>/dev/null || dirname $0 2>/dev/null)
+dirfile="$scriptdir/company/microlith-dir"
+fixdir=$( cat $dirfile | grep -v '^#' )
 
 if [[ "$currentdir" == "$fixdir" ]]
 then
