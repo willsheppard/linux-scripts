@@ -1,0 +1,27 @@
+export BATTER_LOG="/Users/will/data/low_battery.log"
+export BATTERY_LOW="70"
+export BATTERY_WAIT="60"
+
+# CPUOnACPower" = Yes
+# ExternalConnected" = Yes
+
+while true
+do
+    NOW=$(/usr/local/bin/date --iso-8601=ns)
+
+    BATTERY_MAX=$(ioreg -l -w0 | grep MaxCapacity | perl -lane'print$F[4]')
+    BATTERY_CURRENT=$(ioreg -l -w0 | grep CurrentCapacity | perl -lane'print$F[4]')
+
+    BATTERY_CHARGE=$(printf '%.0f' $(echo "($BATTERY_CURRENT / $BATTERY_MAX) * 100" | bc -ql))
+    EXTERNAL_POWER=$(ioreg -l -w0 | grep CPUOnACPower | perl -lane'print$F[5]')
+
+    echo "$NOW -- Battery: $BATTERY_CHARGE% -- Charging: $EXTERNAL_POWER" | tee -a $BATTERY_LOG
+
+    if [[ ("$EXTERNAL_POWER" == "No") && ("$BATTERY_CHARGE" -le "$BATTERY_LOW") ]]
+    then
+        echo ^G # beep
+        /usr/local/bin/notify -s -c 30 -t "Alert" -m "Low battery: $BATTERY_CHARGE" > /dev/null
+    fi
+    
+    sleep $BATTERY_WAIT
+done
