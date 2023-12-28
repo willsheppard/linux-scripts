@@ -7,4 +7,5 @@ yt-dlp \
 --match-filters 'filesize_approx<300M' \
 --write-description \
 --write-info-json \
+--add-metadata \
 $@

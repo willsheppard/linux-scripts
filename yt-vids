@@ -5,4 +5,5 @@ yt-dlp \
 --throttled-rate 10K \
 --write-description \
 --write-info-json \
+--add-metadata \
 $@
