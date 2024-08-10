@@ -1,29 +1,14 @@
 #!/bin/bash
 
-currentdir=$(pwd)
+# "Remember microlith"
 
-# Setup for microlith
-scriptdir=$(basedir $0 2>/dev/null || dirname $0 2>/dev/null)
-dirfile="$scriptdir/company/microlith-dir"
-fixdir=$( cat $dirfile | grep -v '^#' )
+# Display a visual divider
+perl -le'$tr = ("=") x 120; print $tr for 1..2'
 
-if [[ "$currentdir" == "$fixdir" ]]
-then
-    ################# MICROLITH
+# Diff with useful options
+git diff --no-prefix --relative --color --histogram $@
 
-    echo "Microlith diff"
-    microlith-diff.sh $@
-else
-    ################# NORMAL
+echo
+perl -le'$tr = ("=") x 120; print $tr'
 
-    # Display a visual divider
-    perl -le'$tr = ("=") x 120; print $tr for 1..2'
-
-    # Diff with useful options
-    git diff --no-prefix --relative --color --histogram $@
-
-    echo
-
-    git status
-
-fi
+git status
