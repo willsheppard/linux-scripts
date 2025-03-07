@@ -1,1 +1,1 @@
-httrack --mirrorlinks --mirror-wizard $@
+httrack --mirrorlinks --mirror-wizard --robots=0 $@
