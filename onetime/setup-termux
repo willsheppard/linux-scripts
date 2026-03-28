@@ -3,7 +3,10 @@ termux-change-repo
 
 pkg update
 pkg install vim
+pkg install which
 pkg install proot-distro
 
 proot-distro install ubuntu
-proot-distro login ubuntu
+
+echo "echo" >> ~/.bashrc
+echo 'echo "Log in with: proot-distro login ubuntu"' | tee -a ~/.bashrc 
