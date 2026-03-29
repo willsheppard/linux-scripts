@@ -1,0 +1,7 @@
+apt update
+apt install gh
+gh auth login
+
+cd ~
+mkdir alt
+mkdir dev
