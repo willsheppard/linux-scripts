@@ -1,0 +1,1 @@
+kiro-cli chat --tui --trust-all-tools --model claude-sonnet-4.5  
