@@ -5,3 +5,13 @@ gh auth login
 cd ~
 mkdir alt
 mkdir dev
+
+gh repo clone linux-scripts alt/linux-scripts
+gh repo clone dotfiles alt/dotfiles
+
+# setup links
+echo "" >> .bashrc
+echo "# WS custom setup" >> .bashrc
+echo "source ~/alt/dotfiles/.bashrc" >> .bashrc
+ln -s ~/alt/dotfiles/.gitconfig .gitconfig
+ln -s ~/alt/dotfiles/.vimrc .vimrc
