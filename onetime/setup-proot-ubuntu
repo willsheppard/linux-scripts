@@ -1,6 +1,6 @@
 # Install packages
 apt update
-apt install gh
+apt install -y gh jq
 gh auth login
 
 # Install repos
@@ -9,6 +9,7 @@ mkdir alt
 mkdir dev
 gh repo clone linux-scripts alt/linux-scripts
 gh repo clone dotfiles alt/dotfiles
+gh repo clone misc-config alt/misc-config
 
 # Setup links
 echo "" >> .bashrc
