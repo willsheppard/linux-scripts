@@ -1,0 +1,13 @@
+#!/bin/bash
+
+issue="$1"
+
+if [[ -z "$issue" ]]
+then
+    echo "usage: issue-view 7"
+    exit 1
+fi
+
+gh issue view "$issue" --repo \
+  willsheppard/fix-all-the-things --json \
+  number,title,body,comments,labels,state
